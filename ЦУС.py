@@ -20,32 +20,32 @@ class Statistika_1(unittest.TestCase):
     def test_01(self):
         self.driver.get('{}'.format(self.url))
         self.auth_1.auth(self.driver, self.login, self.password) # Авторизация на страницу
-        self.auth_1.open_project(self.driver)
-        self.auth_1.num_1(self.driver)
+        self.auth_1.open_project(self.driver) # Открытие проекта
+        self.auth_1.num_1(self.driver) # Открытие карточки создания контракта
 
     def test_02(self):
         self.driver.get('{}'.format(self.url))
         self.auth_1.auth(self.driver, self.login, self.password) # Авторизация на страницу
-        self.auth_1.open_project(self.driver)
-        self.auth_1.num_2(self.driver)
+        self.auth_1.open_project(self.driver) # Открытие проекта
+        self.auth_1.num_2(self.driver) # Открытие карточки создания типового документа
 
     def test_03(self):
         self.driver.get('{}'.format(self.url))
         self.auth_1.auth(self.driver, self.login, self.password)  # Авторизация на страницу
-        self.auth_1.open_project(self.driver)
-        self.auth_1.num_3(self.driver)
+        self.auth_1.open_project(self.driver) # Открытие проекта
+        self.auth_1.num_3(self.driver) # Открытие карточки управления проектом
 
     def test_04(self):
         self.driver.get('{}'.format(self.url))
         self.auth_1.auth(self.driver, self.login, self.password)  # Авторизация на страницу
-        self.auth_1.open_project(self.driver)
-        self.auth_1.num_4(self.driver)
+        self.auth_1.open_project(self.driver) # Открытие проекта
+        self.auth_1.num_4(self.driver) # Открытие карточки управления проектом(new)
 
     def test_05(self):
         self.driver.get('{}'.format(self.url))
         self.auth_1.auth(self.driver, self.login, self.password)  # Авторизация на страницу
-        self.auth_1.open_project(self.driver)
-        self.auth_1.num_5(self.driver)
+        self.auth_1.open_project(self.driver) # Открытие проекта
+        self.auth_1.num_5(self.driver) # Создание и удаление документа
 
     def teatDown(self):
         self.driver.quit()

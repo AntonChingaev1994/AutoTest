@@ -44,8 +44,10 @@ class settings1(): # by Anton Chingaev
         self.met.click_element(driver, wait, xpath_name=self.page.project_management)
         self.met.click_element(driver, wait, xpath_name=self.page.сontract_management)
         self.met.click_element(driver, wait, xpath_name=self.page.create_button)
-        self.met.visibly(driver, xpath_name='//iframe[@class="modal-iframe"]', vis=True)
-        self.met.text_search(driver, xpath_name=self.page.metca_create_contract, teg='h3', text='Создать контракт')
+
+        element = self.met.text_search(driver, xpath_name=self.page.metca_create_contract, teg='h3', text='Создать контракт')
+        self.met.check_visible(driver, element, True)
+
         self.met.click_element(driver, wait, xpath_name=self.page.btn_close)
         tm.sleep(2)
 
@@ -56,34 +58,43 @@ class settings1(): # by Anton Chingaev
         self.met.click_element(driver, wait, xpath_name=self.page.project_management)
         self.met.click_element(driver, wait, xpath_name=self.page.documents_management)
         self.met.click_element(driver, wait, xpath_name=self.page.create_button)
-        self.met.text_search(driver, xpath_name=self.page.metca_create_documents, teg='h3', text='Создать типовые документы')
+
+        element = self.met.text_search(driver, xpath_name=self.page.metca_create_documents, teg='h3', text='Создать типовые документы')
+        self.met.check_visible(driver, element, True)
+
         self.met.click_element(driver, wait, xpath_name=self.page.btn_close)
         tm.sleep(2)
 
-    def num_3(self, driver): # Открытие карточки создания документа
+    def num_3(self, driver): # Открытие карточки управления проектом
         driver.implicitly_wait(40)
         wait = WebDriverWait(driver, 10)
 
         self.met.click_element(driver, wait, xpath_name=self.page.project_management)
         self.met.click_element(driver, wait, xpath_name=self.page.project_management_doc)
         self.met.click_element(driver, wait, xpath_name=self.page.create_button)
-        self.met.text_search(driver, xpath_name=self.page.metca_project_management_doc, teg='h3', text='Создать документ')
+
+        element = self.met.text_search(driver, xpath_name=self.page.metca_project_management_doc, teg='h3', text='Создать документ')
+        self.met.check_visible(driver, element, True)
+
         self.met.click_element(driver, wait, xpath_name=self.page.btn_close)
         tm.sleep(2)
 
-    def num_4(self, driver): # Открытие настроек категории
+    def num_4(self, driver): # Открытие карточки управления проектом(new)
         driver.implicitly_wait(40)
         wait = WebDriverWait(driver, 10)
 
         self.met.click_element(driver, wait, xpath_name=self.page.project_management)
         self.met.click_element(driver, wait, xpath_name=self.page.project_management_doc_new)
         self.met.click_element(driver, wait, xpath_name=self.page.button_add)
-        self.met.text_search(driver, xpath_name=self.page.partition_window, teg='h3', text='Добавить')
+
+        element = self.met.text_search(driver, xpath_name=self.page.partition_window, teg='h3', text='Добавить')
+        self.met.check_visible(driver, element, True)
+
         tm.sleep(2)
 
-    def num_5(self, driver): # Создание документа
-        driver.implicitly_wait(40)
-        wait = WebDriverWait(driver, 10)
+    def num_5(self, driver): # Создание и удаление документа
+        driver.implicitly_wait(20)
+        wait = WebDriverWait(driver, 20)
         now_time = f'{datetime.strftime(datetime.now(),  "%d-%m-%y %H:%M:%S")}'
 
         self.met.click_element(driver, wait, xpath_name=self.page.project_management)
@@ -93,20 +104,13 @@ class settings1(): # by Anton Chingaev
         self.met.frame_switch(driver, False)
         self.met.click_element(driver, wait, xpath_name=self.page.btn_create_in_frame)
 
-        tm.sleep(1)
-        try:
-            self.met.text_search(driver, xpath_name=self.page.field_name_reestr, teg='a', text=now_time)
-        except NoSuchElementException:
-            raise 'Элемента нет на странице'
+        element = self.met.text_search(driver, xpath_name=self.page.field_name_reestr, teg='a', text=now_time)
+
+        self.met.check_visible(driver, element, True)
 
         self.met.click_element(driver, wait, xpath_name=f"{self.page.structural_list}//tr[@data-id='{self.met.find_id_element(driver, now_time)}']{self.page.rt_field_actions}")
 
         self.met.click_element(driver, wait, xpath_name=self.page.delete_field)
         self.met.action_on_alerts(driver, action=True)
 
-        tm.sleep(1)
-        try:
-            self.met.text_search(driver, xpath_name=self.page.field_name_reestr, teg='a', text=now_time)
-            raise 'Элемент не удален'
-        except NoSuchElementException:
-            pass
+        self.met.check_visible(driver, element, False)

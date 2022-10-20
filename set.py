@@ -9,6 +9,7 @@ from datetime import datetime
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 import os, glob
+import time as tm
 
 
 def write_a_log1(index, string):
@@ -160,7 +161,7 @@ class Method():
 
         driver.implicitly_wait(20)
 
-        driver.find_element(By.XPATH, f"{xpath_name}//{teg}[text()='{text}']")
+        return f"{xpath_name}//{teg}[text()='{text}']"
 
 
     def action_on_alerts(self, driver, action):
@@ -170,26 +171,22 @@ class Method():
             driver.switch_to.alert.dismiss()
 
 
-    def visibly(self, driver, xpath_name, vis=True):
-
-        driver.find_element(By.XPATH, f'{xpath_name}').is_displayed()
-        if vis:
-            driver.find_element(By.XPATH, f'{xpath_name}')
-        else:
-            try:
-                driver.find_element(By.XPATH, f'{xpath_name}').is_displayed()
-                print('Элемент виден')
-            except:
-                print('Элемент не виден')
-                driver.close()
-
     def find_id_element(self, driver, now_time):
         return driver.find_element(
             By.XPATH, f"//td[@class='rt_c rt_field_title']//a[text()='{now_time}']//..//..").get_attribute('data-id')
 
-    # def find_id_element_2(self, driver, xpath, el, attribute):
-    #
-    #     for value in range(el):
-    #         xpath += '//..'
-    #
-    #     return driver.find_element(By.XPATH, f"{xpath}").get_attribute(attribute)
+
+    def check_visible(self, driver, element, visible):
+        if visible:
+            tm.sleep(1)
+            try:
+                driver.find_element(By.XPATH, f"{element}")
+            except NoSuchElementException:
+                raise 'Элемента нет на странице'
+        else:
+            tm.sleep(1)
+            try:
+                driver.find_element(By.XPATH, f"{element}")
+                raise 'Элемент присутствует на странице'
+            except NoSuchElementException:
+                pass
