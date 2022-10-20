@@ -177,6 +177,8 @@ class Method():
 
 
     def check_visible(self, driver, element, visible):
+        driver.implicitly_wait(5)
+
         if visible:
             tm.sleep(1)
             try:

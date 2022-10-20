@@ -46,9 +46,10 @@ class settings1(): # by Anton Chingaev
         self.met.click_element(driver, wait, xpath_name=self.page.create_button)
 
         element = self.met.text_search(driver, xpath_name=self.page.metca_create_contract, teg='h3', text='Создать контракт')
-        self.met.check_visible(driver, element, True)
 
+        self.met.check_visible(driver, element, True)
         self.met.click_element(driver, wait, xpath_name=self.page.btn_close)
+        self.met.check_visible(driver, element, False)
         tm.sleep(2)
 
     def num_2(self, driver): # Открытие карточки создания типового документа
@@ -60,9 +61,10 @@ class settings1(): # by Anton Chingaev
         self.met.click_element(driver, wait, xpath_name=self.page.create_button)
 
         element = self.met.text_search(driver, xpath_name=self.page.metca_create_documents, teg='h3', text='Создать типовые документы')
-        self.met.check_visible(driver, element, True)
 
+        self.met.check_visible(driver, element, True)
         self.met.click_element(driver, wait, xpath_name=self.page.btn_close)
+        self.met.check_visible(driver, element, False)
         tm.sleep(2)
 
     def num_3(self, driver): # Открытие карточки управления проектом
@@ -74,9 +76,10 @@ class settings1(): # by Anton Chingaev
         self.met.click_element(driver, wait, xpath_name=self.page.create_button)
 
         element = self.met.text_search(driver, xpath_name=self.page.metca_project_management_doc, teg='h3', text='Создать документ')
-        self.met.check_visible(driver, element, True)
 
+        self.met.check_visible(driver, element, True)
         self.met.click_element(driver, wait, xpath_name=self.page.btn_close)
+        self.met.check_visible(driver, element, False)
         tm.sleep(2)
 
     def num_4(self, driver): # Открытие карточки управления проектом(new)
@@ -88,8 +91,10 @@ class settings1(): # by Anton Chingaev
         self.met.click_element(driver, wait, xpath_name=self.page.button_add)
 
         element = self.met.text_search(driver, xpath_name=self.page.partition_window, teg='h3', text='Добавить')
-        self.met.check_visible(driver, element, True)
 
+        self.met.check_visible(driver, element, True)
+        self.met.click_element(driver, wait, xpath_name=self.page.btn_close)
+        self.met.check_visible(driver, element, False)
         tm.sleep(2)
 
     def num_5(self, driver): # Создание и удаление документа
