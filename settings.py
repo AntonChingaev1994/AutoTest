@@ -93,7 +93,11 @@ class settings1(): # by Anton Chingaev
         self.met.frame_switch(driver, False)
         self.met.click_element(driver, wait, xpath_name=self.page.btn_create_in_frame)
 
-        self.met.text_search(driver, xpath_name=self.page.field_name_reestr, teg='a', text=now_time)
+        tm.sleep(1)
+        try:
+            self.met.text_search(driver, xpath_name=self.page.field_name_reestr, teg='a', text=now_time)
+        except NoSuchElementException:
+            raise 'Элемента нет на странице'
 
         self.met.click_element(driver, wait, xpath_name=f"{self.page.structural_list}//tr[@data-id='{self.met.find_id_element(driver, now_time)}']{self.page.rt_field_actions}")
 
