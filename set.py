@@ -178,15 +178,14 @@ class Method():
 
     def check_visible(self, driver, element, visible):
         driver.implicitly_wait(5)
+        tm.sleep(1)
 
         if visible:
-            tm.sleep(1)
             try:
                 driver.find_element(By.XPATH, f"{element}")
             except NoSuchElementException:
                 raise 'Элемента нет на странице'
         else:
-            tm.sleep(1)
             try:
                 driver.find_element(By.XPATH, f"{element}")
                 raise 'Элемент присутствует на странице'
