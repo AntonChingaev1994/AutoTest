@@ -196,7 +196,7 @@ class Method():
         return driver.find_element(By.XPATH, xpth).get_attribute(atribut)
 
 
-class Modal_Window(Method):
+class ModalWindow(Method):
     """Поле выбора элементов"""
 
     locator = '//div[@class="modal-dialog modal-window"]'
@@ -204,12 +204,10 @@ class Modal_Window(Method):
     def select_element(self, driver, wait, id, title):
         '''Кликнуть по выбранному элементу'''
 
-        click1(wait.until(
-            EC.element_to_be_clickable((By.XPATH, f'{self.locator}//tr[@data-id="{id}"]//a[@title="{title}"]'))),
-               driver)
+        self.click_element(driver, wait, f'{self.locator}//tr[@data-id="{id}"]//a[@title="{title}"]')
 
 
-class Modal_Content_Iframe(Method):
+class ModalContentIframe(Method):
     """Форма создания документа"""
 
     locator_window = '//div[@class="modal-content"]'
@@ -226,5 +224,30 @@ class Modal_Content_Iframe(Method):
         '''Клинуть по справочнику'''
 
         self.frame_switch(driver, switch=True)
-        click1(wait.until(EC.element_to_be_clickable((By.XPATH, f'//div[text()="{element}"]//..'))), driver)
+        self.click_element(driver, wait, f'//div[text()="{element}"]//..')
         self.frame_switch(driver, switch=False)
+
+
+class DropdownMmenuRight(Method):
+    '''Действие над запись, правое окно'''
+
+    locator = '//ul[@class="wo-dropdown dropdown-menu pull-right show"]'
+    locator_info = '//li[@class="wo-act-info"]'
+    locator_edit = '//li[@class="wo-act-edit"]'
+    locator_delete = '//li[@class="wo-act-delete"]'
+
+
+    def inform(self, driver, wait):
+        '''Информация'''
+
+        self.click_element(driver, wait, f'{self.locator}{self.locator_info}')
+
+    def edit(self, driver, wait):
+        '''Редактировать'''
+
+        self.click_element(driver, wait, f'{self.locator}{self.locator_edit}')
+
+    def delete(self, driver, wait):
+        '''Удалить'''
+
+        self.click_element(driver, wait, f'{self.locator}{self.locator_delete}')

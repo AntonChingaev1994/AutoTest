@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from datetime import datetime
 from selenium.common.exceptions import NoSuchElementException
 import os, glob
-from set import Method, Modal_Content_Iframe, Modal_Window
+from set import Method, ModalContentIframe, ModalWindow, DropdownMmenuRight
 from page_object import Page
 from datetime import datetime
 
@@ -19,8 +19,9 @@ class settings1(): # by Anton Chingaev
     def __init__(self):
         self.met = Method()
         self.page = Page()
-        self.frame = Modal_Content_Iframe()
-        self.modal_window = Modal_Window()
+        self.frame = ModalContentIframe()
+        self.modal_window = ModalWindow()
+        self.right_menu = DropdownMmenuRight()
 
     def auth(self, driver, login, password): # Авторизация на страницу
         driver.implicitly_wait(40)
@@ -136,7 +137,7 @@ class settings1(): # by Anton Chingaev
         id = self.met.get_atribut(driver, xpth=f'//td[@class="rt_c rt_field_title"]//a[text()="{now_time}"]', iter=2, atribut='data-id')
         self.met.click_element(driver, wait, xpath_name=f"{self.page.structural_list}//tr[@data-id='{id}']{self.page.rt_field_actions}")
 
-        self.met.click_element(driver, wait, xpath_name=self.page.delete_field)
+        self.right_menu.delete(driver, wait)
         self.met.action_on_alerts(driver, action=True)
 
         self.met.check_visible(driver, element, False)
