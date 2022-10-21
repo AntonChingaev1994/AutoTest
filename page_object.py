@@ -44,3 +44,6 @@ class Page():
 
     new_doc = '//a[@data-subtab="pm_docs2"]'
     but_add = '//a[@class="iframeEditor btn btn-primary "]'
+
+    btn_fill_in_template = '//a[text()="Заполнить по шаблону"]'
+    btn_success = '//a[@class="btn btn-success"]'

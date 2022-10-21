@@ -62,6 +62,7 @@ def proverka(driver, wait, xpath_name):  # Ждать когда появить�
         write_a_log1(False, 'Не найден элемент ----- Тест провален')
         driver.close()
 
+
 class Method():
     def time_out(self, driver, name_doc, name): # Ждать пока исчезнет элемент
         driver.implicitly_wait(5)
@@ -171,11 +172,6 @@ class Method():
             driver.switch_to.alert.dismiss()
 
 
-    def find_id_element(self, driver, now_time):
-        return driver.find_element(
-            By.XPATH, f"//td[@class='rt_c rt_field_title']//a[text()='{now_time}']//..//..").get_attribute('data-id')
-
-
     def check_visible(self, driver, element, visible):
         driver.implicitly_wait(5)
         tm.sleep(1)
@@ -191,3 +187,44 @@ class Method():
                 raise 'Элемент присутствует на странице'
             except NoSuchElementException:
                 pass
+
+    def get_atribut(self, driver, xpth, iter, atribut):
+
+        for value in range(iter):
+            xpth += '//..'
+
+        return driver.find_element(By.XPATH, xpth).get_attribute(atribut)
+
+
+class Modal_Window(Method):
+    """Поле выбора элементов"""
+
+    locator = '//div[@class="modal-dialog modal-window"]'
+
+    def select_element(self, driver, wait, id, title):
+        '''Кликнуть по выбранному элементу'''
+
+        click1(wait.until(
+            EC.element_to_be_clickable((By.XPATH, f'{self.locator}//tr[@data-id="{id}"]//a[@title="{title}"]'))),
+               driver)
+
+
+class Modal_Content_Iframe(Method):
+    """Форма создания документа"""
+
+    locator_window = '//div[@class="modal-content"]'
+    locator_frame = '//iframe[@class="modal-iframe"]'
+
+    def paste_text(self, driver, field, text):
+        '''Вствить текст в поле'''
+
+        self.frame_switch(driver, switch=True)
+        excretion(driver.find_element(By.XPATH, field), driver, text, False)
+        self.frame_switch(driver, switch=False)
+
+    def click_field(self, driver, wait, element):
+        '''Клинуть по справочнику'''
+
+        self.frame_switch(driver, switch=True)
+        click1(wait.until(EC.element_to_be_clickable((By.XPATH, f'//div[text()="{element}"]//..'))), driver)
+        self.frame_switch(driver, switch=False)
