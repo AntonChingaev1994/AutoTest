@@ -204,7 +204,7 @@ class ModalWindow(Method):
     def select_element(self, driver, wait, id, title):
         '''Кликнуть по выбранному элементу'''
 
-        self.click_element(driver, wait, f'{self.locator}//tr[@data-id="{id}"]//a[@title="{title}"]')
+        self.click_element(driver, wait, f"{self.locator}//tr[@data-id='{id}']//a[@title='{title}']")
 
 
 class ModalContentIframe(Method):
