@@ -134,7 +134,7 @@ class settings1(): # by Anton Chingaev
 
         self.met.check_visible(driver, element, True)
 
-        id = self.met.get_atribut(driver, xpth=f'//td[@class="rt_c rt_field_title"]//a[text()="{now_time}"]', iter=2, atribut='data-id')
+        id = self.met.get_atribut(driver, xpth=f'{self.page.field_name_reestr}//a[text()="{now_time}"]', iter=2, atribut='data-id')
         self.met.click_element(driver, wait, xpath_name=f"{self.page.structural_list}//tr[@data-id='{id}']{self.page.rt_field_actions}")
 
         self.right_menu.delete(driver, wait)
