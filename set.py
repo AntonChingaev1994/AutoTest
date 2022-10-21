@@ -229,7 +229,7 @@ class ModalContentIframe(Method):
 
 
 class DropdownMmenuRight(Method):
-    '''Действие над запись, правое окно'''
+    '''Действие над записью, правое окно'''
 
     locator = '//ul[@class="wo-dropdown dropdown-menu pull-right show"]'
     locator_info = '//li[@class="wo-act-info"]'
