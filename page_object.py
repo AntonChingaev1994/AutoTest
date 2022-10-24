@@ -47,3 +47,5 @@ class Page():
 
     btn_fill_in_template = '//a[text()="Заполнить по шаблону"]'
     btn_success = '//a[@class="btn btn-success"]'
+
+    list_table = "//div[@class='tree_list_table']"

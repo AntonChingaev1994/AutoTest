@@ -188,6 +188,7 @@ class Method():
             except NoSuchElementException:
                 pass
 
+
     def get_atribut(self, driver, xpth, iter, atribut):
 
         for value in range(iter):
@@ -236,6 +237,29 @@ class DropdownMmenuRight(Method):
     locator_edit = '//li[@class="wo-act-edit"]'
     locator_delete = '//li[@class="wo-act-delete"]'
 
+    def inform(self, driver, wait):
+        '''Информация'''
+
+        self.click_element(driver, wait, f'{self.locator}{self.locator_info}')
+
+    def edit(self, driver, wait):
+        '''Редактировать'''
+
+        self.click_element(driver, wait, f'{self.locator}{self.locator_edit}')
+
+    def delete(self, driver, wait):
+        '''Удалить'''
+
+        self.click_element(driver, wait, f'{self.locator}{self.locator_delete}')
+
+
+class DropdownMmenuRightActive(Method):
+    '''Действие над записью правое активное окно'''
+
+    locator = "//ul[@class='dropdown-menu pull-right not_active show']"
+    locator_info = "//a[@title='Информация']"
+    locator_edit = "//a[@title='Редактировать']"
+    locator_delete = "//a[@title='Удалить']"
 
     def inform(self, driver, wait):
         '''Информация'''

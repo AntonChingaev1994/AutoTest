@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from datetime import datetime
 from selenium.common.exceptions import NoSuchElementException
 import os, glob
-from set import Method, ModalContentIframe, ModalWindow, DropdownMmenuRight
+from set import Method, ModalContentIframe, ModalWindow, DropdownMmenuRight, DropdownMmenuRightActive
 from page_object import Page
 from datetime import datetime
 
@@ -22,6 +22,7 @@ class settings1(): # by Anton Chingaev
         self.frame = ModalContentIframe()
         self.modal_window = ModalWindow()
         self.right_menu = DropdownMmenuRight()
+        self.right_menu_active = DropdownMmenuRightActive()
 
     def auth(self, driver, login, password): # Авторизация на страницу
         driver.implicitly_wait(40)
@@ -93,7 +94,7 @@ class settings1(): # by Anton Chingaev
         self.met.click_element(driver, wait, xpath_name=self.page.project_management)
         self.met.click_element(driver, wait, xpath_name=self.page.project_management_doc_new)
 
-        self.met.check_visible(driver, f'//div[@class="tree_list_table"]//a[text()="{string}"]', False)
+        self.met.check_visible(driver, f'{self.page.list_table}//a[text()="{string}"]', False)
         self.met.click_element(driver, wait, xpath_name=self.page.btn_fill_in_template)
 
         self.met.click_element(driver, wait, xpath_name='//div[text()="Объект"]//..')
@@ -106,14 +107,14 @@ class settings1(): # by Anton Chingaev
         self.met.action_on_alerts(driver, action=True)
         tm.sleep(1)
         self.met.action_on_alerts(driver, action=True)
-        self.met.check_visible(driver, f'//div[@class="tree_list_table"]//a[text()="{string}"]', True)
+        self.met.check_visible(driver, f'{self.page.list_table}//a[text()="{string}"]', True)
 
-        id = self.met.get_atribut(driver, xpth=f'//div[@class="tree_list_table"]//a[text()="{string}"]', iter=2, atribut='data-id')
+        id = self.met.get_atribut(driver, xpth=f'{self.page.list_table}//a[text()="{string}"]', iter=2, atribut='data-id')
         self.met.click_element(driver, wait, xpath_name=f'//div[@data-id="{id}"]//a[@title="Действия"]')
 
-        self.met.click_element(driver, wait, xpath_name='//ul[@class="dropdown-menu pull-right not_active show"]//a[@title="Удалить"]')
+        self.right_menu_active.delete(driver, wait)
         self.met.action_on_alerts(driver, action=True)
-        self.met.check_visible(driver, f'//div[@class="tree_list_table"]//a[text()="{string}"]', False)
+        self.met.check_visible(driver, f'{self.page.list_table}//a[text()="{string}"]', False)
         tm.sleep(2)
 
     def num_5(self, driver): # Создание и удаление документа
