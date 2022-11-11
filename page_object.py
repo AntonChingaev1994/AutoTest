@@ -31,7 +31,7 @@ class Page():
     button_add = '//a[@class="iframeEditor btn btn-primary "]'
     partition_window = '//div[@class="modal-content"]'
 
-    field_name = '//textarea[@class="form-control lib-control"]'
+    field_name = '//textarea[@class="form-control lib-control "]'
     btn_create_in_frame = '//a[@class="btn btn-primary btn-iframe-save-override"]'
     field_name_reestr = '//td[@class="rt_c rt_field_title"]'
 
